@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4c162692-01be-4eec-9348-6baab57defdd" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1cWLLZmn3CFkKuqUJgicgtmlWHy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../注册登录" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="D:\IntelliJ IDEA 2019.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\最后一个Demo\vue\src\components\images" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.config.js">
+    <configuration name="Sequelize.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/egg/app/service/Sequelize.js" working-dir="$PROJECT_DIR$/egg/app/service">
+      <method v="2" />
+    </configuration>
+    <configuration name="config.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/egg/app/service/config.js" working-dir="$PROJECT_DIR$/egg/app/service">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.config.js" />
+        <item itemvalue="Node.js.Sequelize.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4c162692-01be-4eec-9348-6baab57defdd" name="Default Changelist" comment="" />
+      <created>1590639347788</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1590639347788</updated>
+      <workItem from="1590639350357" duration="7800000" />
+      <workItem from="1590652344012" duration="24600000" />
+      <workItem from="1590716428403" duration="16287000" />
+      <workItem from="1590820154920" duration="3027000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1023" y="309" key="#ESLint" timestamp="1590652385974">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="1023" y="309" key="#ESLint/0.0.1536.824@0.0.1536.824" timestamp="1590652385974" />
+    <state x="413" y="185" key="#Sequelize.js" timestamp="1590731480395">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="413" y="185" key="#Sequelize.js/0.0.1536.824@0.0.1536.824" timestamp="1590731480395" />
+    <state x="782" y="146" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590645503491">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="782" y="146" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1590645503491" />
+    <state x="703" y="172" key="FileChooserDialogImpl" timestamp="1590729399782">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="703" y="172" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590729399782" />
+    <state width="1231" height="216" key="GridCell.Tab.0.bottom" timestamp="1590735566806">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1231" height="216" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590735566806" />
+    <state width="1231" height="216" key="GridCell.Tab.0.center" timestamp="1590735566806">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1231" height="216" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590735566806" />
+    <state width="1231" height="216" key="GridCell.Tab.0.left" timestamp="1590735566806">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1231" height="216" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590735566806" />
+    <state width="1231" height="216" key="GridCell.Tab.0.right" timestamp="1590735566806">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1231" height="216" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590735566806" />
+    <state x="706" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1590675160607">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="706" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1590675160607" />
+  </component>
+</project>
