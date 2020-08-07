@@ -17,7 +17,8 @@ Vue.config.productionTip = false;
 
 const store = new Vuex.Store({
   state:{
-    userId:''
+    userId:'',
+    loginCode:0
   }
 })
 

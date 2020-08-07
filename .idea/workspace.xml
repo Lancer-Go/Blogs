@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4c162692-01be-4eec-9348-6baab57defdd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/egg/app/service/registry.js" beforeDir="false" afterPath="$PROJECT_DIR$/egg/app/service/registry.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/egg/app/service/upart.js" beforeDir="false" afterPath="$PROJECT_DIR$/egg/app/service/upart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue/src/components/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/components/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/components/registry.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/components/registry.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +123,7 @@
       <workItem from="1596725307361" duration="6048000" />
       <workItem from="1596761189008" duration="22158000" />
       <workItem from="1596784003563" duration="1540000" />
-      <workItem from="1596813732167" duration="1002000" />
+      <workItem from="1596813732167" duration="4879000" />
     </task>
     <servers />
   </component>

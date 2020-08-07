@@ -93,9 +93,9 @@
     methods: {
       goLogin(){
     const encrypt = (word,key) => {
-      var key = CryptoJS.enc.Utf8.parse(key);
-      var srcs = CryptoJS.enc.Utf8.parse(word);
-      var encrypted = CryptoJS.AES.encrypt(srcs, key, {
+      key = CryptoJS.enc.Utf8.parse(key);
+      const srcs = CryptoJS.enc.Utf8.parse(word);
+      const encrypted = CryptoJS.AES.encrypt(srcs, key, {
         mode: CryptoJS.mode.ECB,
         padding: CryptoJS.pad.Pkcs7 // 后台用的是pad.Pkcs5,前台对应为Pkcs7
       });

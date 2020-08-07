@@ -64,7 +64,7 @@
       return {
         ruleForm:{
           user:'',
-          pwd:'',
+          pwd:''
         },
         rules:{
           user:[
@@ -81,7 +81,6 @@
     methods:{
       goHome(){
         let that=this;
-        let resInfo;
         let user=this.ruleForm.user;
         let pwd=this.ruleForm.pwd
         const encrypt = (word,key) => {//加密
@@ -94,13 +93,16 @@
           return encrypted.toString();
         }
         if(OK){
-          this.ruleForm.pwd=encrypt(this.ruleForm.pwd,'pass')
+          pwd=encrypt(this.ruleForm.pwd,'pass')
           request.post("/api/goLogin",{
             user:user,
             pwd:pwd
-          }).then((res)=>{
-            /*console.log(res);*/
-            resInfo=res.data.code;
+          }).then((res)=>{//使用that指针指向this，因为在then情况下指针this会改变方向，变为undefinded
+            console.log(res);
+            if(res.data.code===-1)
+              that.$store.state.loginCode=-1;
+            else if(res.data.code===1)
+              that.$store.state.loginCode=1;
             /*if(window.sessionStorage.getItem('token')){
               request.defaults.headers.common['Authorization'] = 'Bearer'+ window.sessionStorage.getItem('token');
             }
@@ -108,13 +110,13 @@
             */
           })
           //尽量不要把条件放到then后面的resolve，容易导致this指针乱了
-          if(resInfo === -1){
+          if(this.$store.state.loginCode === -1){
             alert("登陆失败");
             this.$router.push('/login');
             this.ruleForm.user='';
             this.ruleForm.pwd='';
-          }else{
-            this.$cookies.set("usercookie",that.ruleForm.user+'_'+'userKey',"1h");//1小时过期
+          }else if(this.$store.state.loginCode===1){
+            this.$cookies.set("usercookie",this.ruleForm.user+'_'+'userKey',"1h");//1小时过期
             this.$store.state.userId=user;
             alert("登陆成功");
             this.$router.push('/blog');
@@ -124,7 +126,7 @@
         }
       },
       goRegistery(){
-        setTimeout(()=>{this.$router.push({path:"/registry"})},2000);
+        this.$router.push({path:"/registry"});
         loading.close();
       },
       jumpHome(){
