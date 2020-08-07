@@ -80,10 +80,14 @@
     },
     methods:{
       goHome(){
+        let that=this;
+        let resInfo;
+        let user=this.ruleForm.user;
+        let pwd=this.ruleForm.pwd
         const encrypt = (word,key) => {//加密
-          var key = CryptoJS.enc.Utf8.parse(key);
-          var srcs = CryptoJS.enc.Utf8.parse(word);
-          var encrypted = CryptoJS.AES.encrypt(srcs, key, {
+          key = CryptoJS.enc.Utf8.parse(key);
+          const srcs = CryptoJS.enc.Utf8.parse(word);
+          const encrypted = CryptoJS.AES.encrypt(srcs, key, {
             mode: CryptoJS.mode.ECB,
             padding: CryptoJS.pad.Pkcs7 // 后台用的是pad.Pkcs5,前台对应为Pkcs7
           });
@@ -92,27 +96,29 @@
         if(OK){
           this.ruleForm.pwd=encrypt(this.ruleForm.pwd,'pass')
           request.post("/api/goLogin",{
-            user:this.ruleForm.user,
-            pwd:this.ruleForm.pwd
+            user:user,
+            pwd:pwd
           }).then((res)=>{
-            console.log(res);
+            /*console.log(res);*/
+            resInfo=res.data.code;
             /*if(window.sessionStorage.getItem('token')){
               request.defaults.headers.common['Authorization'] = 'Bearer'+ window.sessionStorage.getItem('token');
             }
             window.sessionStorage.setItem('token','')//需要修改
             */
-            if(res.data.code === -1){
-              alert("登陆失败");
-              this.$router.push('/login');
-              this.ruleForm.user='';
-              this.ruleForm.pwd='';
-            }else{
-              this.$cookies.set("usercookie",this.ruleForm.user+this.ruleForm.pwd,"1h");//1小时过期
-              this.$store.state.userId=this.ruleForm.user;
-              alert("登陆成功");
-              this.$router.push('/blog');
-            }
           })
+          //尽量不要把条件放到then后面的resolve，容易导致this指针乱了
+          if(resInfo === -1){
+            alert("登陆失败");
+            this.$router.push('/login');
+            this.ruleForm.user='';
+            this.ruleForm.pwd='';
+          }else{
+            this.$cookies.set("usercookie",that.ruleForm.user+'_'+'userKey',"1h");//1小时过期
+            this.$store.state.userId=user;
+            alert("登陆成功");
+            this.$router.push('/blog');
+          }
         }else{
           alert("账号密码输入规则有误~")
         }
@@ -128,7 +134,9 @@
           this.$router.push({
             path: '/login'
           });
-        }else if(usercookie==='GH1.1.1689020474.1484362313'){
+        }else{
+          let user=usercookie.split('_');
+          this.$store.state.userId=user[0];
           this.$router.push({
             path: '/blog'
           });

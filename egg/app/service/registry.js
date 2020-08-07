@@ -22,7 +22,7 @@ class RegistryService extends Service {
             return {
                 code: 1,
                 message: '注册成功',
-                dat//一般不返回，容易信息泄露
+                //dat   //一般不返回，容易信息泄露
             }
         }
 

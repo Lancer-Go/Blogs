@@ -2,32 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c162692-01be-4eec-9348-6baab57defdd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/egg/app/db/Blog.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/egg/app/db/User.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/egg/app/db/sync.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue/src/components/CSS/blog-post.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue/src/components/blog-components/Bcontent.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue/src/components/blog_list/general.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue/src/components/images/bg3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue/src/components/images/bg4.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/egg/app/controller/home.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/egg/app/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/egg/app/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/egg/app/service/config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/egg/app/service/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/egg/app/service/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/egg/app/service/registry.js" beforeDir="false" afterPath="$PROJECT_DIR$/egg/app/service/registry.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/egg/config/config.default.js" beforeDir="false" afterPath="$PROJECT_DIR$/egg/config/config.default.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/egg/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/egg/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/config/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/src/components/HelloWorld.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/egg/app/service/upart.js" beforeDir="false" afterPath="$PROJECT_DIR$/egg/app/service/upart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue/src/components/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/components/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/src/components/registry.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/components/registry.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +121,9 @@
       <workItem from="1596674153532" duration="11049000" />
       <workItem from="1596700899817" duration="9515000" />
       <workItem from="1596725307361" duration="6048000" />
-      <workItem from="1596761189008" duration="17119000" />
+      <workItem from="1596761189008" duration="22158000" />
+      <workItem from="1596784003563" duration="1540000" />
+      <workItem from="1596813732167" duration="1002000" />
     </task>
     <servers />
   </component>
@@ -171,22 +151,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="703" y="172" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1594984089693" />
-    <state width="1493" height="217" key="GridCell.Tab.0.bottom" timestamp="1596765536994">
+    <state width="1493" height="217" key="GridCell.Tab.0.bottom" timestamp="1596783814799">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="217" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1596765536994" />
-    <state width="1493" height="217" key="GridCell.Tab.0.center" timestamp="1596765536994">
+    <state width="1493" height="217" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1596783814799" />
+    <state width="1493" height="217" key="GridCell.Tab.0.center" timestamp="1596783814799">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="217" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1596765536994" />
-    <state width="1493" height="217" key="GridCell.Tab.0.left" timestamp="1596765536993">
+    <state width="1493" height="217" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1596783814799" />
+    <state width="1493" height="217" key="GridCell.Tab.0.left" timestamp="1596783814799">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="217" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1596765536993" />
-    <state width="1493" height="217" key="GridCell.Tab.0.right" timestamp="1596765536994">
+    <state width="1493" height="217" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1596783814799" />
+    <state width="1493" height="217" key="GridCell.Tab.0.right" timestamp="1596783814799">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="217" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1596765536994" />
+    <state width="1493" height="217" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1596783814799" />
     <state x="706" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1596774306306">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

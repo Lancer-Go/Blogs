@@ -17,7 +17,7 @@ class UpArtService extends Service {
             return{
                 code:1,
                 message:'上传成功',
-                dat//一般不返回，容易信息泄露
+                //  dat//一般不返回，容易信息泄露
             }
         }
         else{
