@@ -1,23 +1,36 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  components:{
+  },
+  data(){
+    return{
+
+    }
+  },
+  mounted(){
+
+  },
 }
-</script>
+</script>>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body{
+    background-color: #f4f5f5;
+    margin:0;
+  }
+  ::-webkit-scrollbar{
+    width: .6rem;
+    height: .6rem;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: #ccc;
+    outline:none;
+    border-radius: 10px;
+  }
 </style>

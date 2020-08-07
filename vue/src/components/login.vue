@@ -12,9 +12,11 @@
           <el-form-item label="密码" prop="pwd" class="item-pad">
             <el-input type="password" v-model="ruleForm.pwd" show-password></el-input>
           </el-form-item>
-          <p><button class="btn" @click="goHome">登录</button></p>
-          <p><button class="btn" @click="goRegistery">注册</button></p>
-          <el-button type="warning" icon="el-icon-star-off" circle @click="jumpHome">我的</el-button>
+          <div class="button-style">
+            <button class="btn" @click="goHome">登录</button>
+            <button class="btn" @click="goRegistery">注册</button>
+          </div>
+          <el-button type="warning" icon="el-icon-star-off" circle @click="jumpHome" style="margin-left: 165px;width:70px">我的</el-button>
         </el-form>
       </div>
     </div>
@@ -24,41 +26,41 @@
 
   import request from "axios"
   import CryptoJS from 'crypto-js'
+  //validator定义
   var OK=false;
+  const checkUser = (rule, value, callback)=>{
+    if(!value){
+      OK=false;
+      callback(new Error("请输入账号"))
+    }else if(value.length<6){
+      OK=false;
+      callback(new Error("账号要不少于6位"))
+    }
+    else{
+      OK=true;
+      callback()
+    }
+  }
+  const validatePass = (rule, value, callback) => {
+    const reg= /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/
+    const checkpass = new RegExp(reg)
+    if (value === '') {
+      OK=false;
+      callback(new Error('请输入密码'));
+    }else if(!checkpass.test(value)){
+      OK=false;
+      callback(new Error("请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种"))
+    } else{
+      OK=true;
+      callback()
+    }
+  }
   export default {
     props:{
     },
     components:{
     },
     data(){
-      var checkUser = (rule, value, callback)=>{
-        if(!value){
-          OK=false;
-          callback(new Error("请输入账号"))
-        }else if(value.length<6){
-          OK=false;
-          callback(new Error("账号要不少于6位"))
-        }
-        else{
-          OK=true;
-          callback()
-        }
-      }
-      var validatePass = (rule, value, callback) => {
-        const reg= /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/
-        const checkpass = new RegExp(reg)
-        if (value === '') {
-          OK=false;
-          callback(new Error('请输入密码'));
-        }else if(!checkpass.test(value)){
-          OK=false;
-          callback(new Error("请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种"))
-        } else{
-          OK=true;
-          callback()
-        }
-      }
-
       return {
         ruleForm:{
           user:'',
@@ -94,16 +96,21 @@
             pwd:this.ruleForm.pwd
           }).then((res)=>{
             console.log(res);
-            window.localStorage.setItem('token',res.token)
+            /*if(window.sessionStorage.getItem('token')){
+              request.defaults.headers.common['Authorization'] = 'Bearer'+ window.sessionStorage.getItem('token');
+            }
+            window.sessionStorage.setItem('token','')//需要修改
+            */
             if(res.data.code === -1){
-              setTimeout(()=>{this.$router.push('/login');},1000)
               alert("登陆失败");
-              this.rules.user=this.ruleForm.user;
+              this.$router.push('/login');
+              this.ruleForm.user='';
               this.ruleForm.pwd='';
             }else{
-              this.$cookies.set("usercookie","GH1.1.1689020474.1484362313","1h");//1小时过期
+              this.$cookies.set("usercookie",this.ruleForm.user+this.ruleForm.pwd,"1h");//1小时过期
+              this.$store.state.userId=this.ruleForm.user;
               alert("登陆成功");
-              this.$router.push('/home');
+              this.$router.push('/blog');
             }
           })
         }else{
@@ -111,7 +118,8 @@
         }
       },
       goRegistery(){
-        setTimeout(()=>{this.$router.push('/registry')},1500)
+        setTimeout(()=>{this.$router.push({path:"/registry"})},2000);
+        loading.close();
       },
       jumpHome(){
         let usercookie = this.$cookies.get("usercookie");
@@ -122,7 +130,7 @@
           });
         }else if(usercookie==='GH1.1.1689020474.1484362313'){
           this.$router.push({
-            path: '/home'
+            path: '/blog'
           });
         }
       }
@@ -130,6 +138,7 @@
     created(){
     },
     mounted(){
+
     }
   }
 </script>
@@ -146,7 +155,7 @@
   }
   .mask{
     width:400px;
-    height:330px;
+    height:350px;
     background: white;
     border-radius: 20px;
     position: absolute;
@@ -166,9 +175,8 @@
   .mask-box{
     width: 100%;
     height: 400px;
-  }
-  .group{
-    padding:0px 20px;
+    display: flex;
+    flex-direction: column;
   }
   .group .el-input {
     margin-top:28px;
@@ -179,7 +187,6 @@
     width:150px;
     padding: 10px 10px;
     background: 0;
-    left: 32%;
     bottom:30px;
     background: deepskyblue;
     color:white;
@@ -188,5 +195,9 @@
   }
   .item-pad{
     padding: 10px;
+  }
+  .button-style{
+    padding: 10px;
+    margin-left: 40px;
   }
 </style>

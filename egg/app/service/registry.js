@@ -1,12 +1,12 @@
 'use strict';
 const Service = require('egg').Service;
-const User = require('./config');
+const User = require('../db/User');
 
 class RegistryService extends Service {
     async goregistry(user, pwd) {
         let data = await User.findAll({
             where:{
-                name:user
+                user:user
             }
         });
         if (data.length > 0) {
@@ -15,15 +15,14 @@ class RegistryService extends Service {
                 message: '注册失败,用户已存在',
             }
         } else {
-
             let dat = await User.create({
-                name: user,
+                user: user,
                 password: pwd
             });
             return {
                 code: 1,
                 message: '注册成功',
-                dat
+                dat//一般不返回，容易信息泄露
             }
         }
 

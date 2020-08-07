@@ -1,14 +1,15 @@
 'use strict';
 const Service = require('egg').Service;
-const User = require('./config');
+const User = require('../db/User');
 class LoginService extends Service {
     async gologin(user,pwd) {
         let data = await User.findAll({
             where:{
-                name:user,
+                user:user,
                 password:pwd
             }
         });
+
         if(data.length>0){
             return{
                 code:1,
@@ -22,5 +23,4 @@ class LoginService extends Service {
         }
     }
 }
-//User.sync({force:true})第一次需要初始表
 module.exports = LoginService;

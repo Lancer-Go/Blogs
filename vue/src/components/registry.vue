@@ -22,50 +22,54 @@
   </div>
 </template>
 <script>
+  import CryptoJS from "crypto-js";
   import request from "axios";
-  import CryptoJS from 'crypto-js'
-  var OK = false;
+
+
+  //validator定义
+  var OK=false;
+  const validateRPass = (rule, value, callback) => {
+    const reg= /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/
+    if (value === '') {
+      OK=false;
+      callback(new Error('请输入密码'));
+    }else if(!reg.test(value)){
+      OK=false;
+      callback(new Error("请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种"))
+    } else{
+      OK=true;
+      callback()
+    }
+  };
+  const validateRPass2 = (rule, value, callback) => {
+    if (value === '') {
+      OK = false;
+      callback(new Error('请再次输入密码'));
+    } else if (value !== this.ruleForm.pwd) {
+      OK = false;
+      callback(new Error('两次输入密码不一致!'));
+    } else {
+      OK = true;
+      callback();
+    }
+  };
+  const checkRUser = (rule, value, callback) => {
+    if(!value){
+      OK=false;
+      callback(new Error("请输入账号"))
+    }else if(value.length<6){
+      OK=false
+      callback(new Error("账号要不少于6位"))
+    } else{
+      OK=true
+      callback()
+    }
+  };
+
   export default {
     props: {},
     components: {},
     data() {
-      var checkRUser = (rule, value, callback)=>{
-        if(!value){
-          OK=false;
-          callback(new Error("请输入账号"))
-        }else if(value.length<6){
-          OK=false
-          callback(new Error("账号要不少于6位"))
-        } else{
-          OK=true
-          callback()
-        }
-      }
-      var validateRPass = (rule, value, callback) => {
-        const reg= /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/
-        if (value === '') {
-          OK=false;
-          callback(new Error('请输入密码'));
-        }else if(!reg.test(value)){
-          OK=false;
-          callback(new Error("请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种"))
-        } else{
-          OK=true;
-          callback()
-        }
-      }
-      var validateRPass2 = (rule, value, callback) => {
-        if (value === '') {
-          OK=false;
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.pwd) {
-          OK=false;
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          OK=true;
-          callback();
-        }
-      };
       return {
         ruleForm:{
           user:'',
@@ -87,37 +91,37 @@
     },
     computed: {},
     methods: {
-      goLogin() {
-        const encrypt = (word,key) => {
-          var key = CryptoJS.enc.Utf8.parse(key);
-          var srcs = CryptoJS.enc.Utf8.parse(word);
-          var encrypted = CryptoJS.AES.encrypt(srcs, key, {
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7 // 后台用的是pad.Pkcs5,前台对应为Pkcs7
-          });
-          return encrypted.toString();
+      goLogin(){
+    const encrypt = (word,key) => {
+      var key = CryptoJS.enc.Utf8.parse(key);
+      var srcs = CryptoJS.enc.Utf8.parse(word);
+      var encrypted = CryptoJS.AES.encrypt(srcs, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7 // 后台用的是pad.Pkcs5,前台对应为Pkcs7
+      });
+      return encrypted.toString();
+    }
+    if(OK){
+      this.ruleForm.pwd=encrypt(this.ruleForm.pwd,'pass')
+      this.ruleForm.pwd1=encrypt(this.ruleForm.pwd,'pass')
+      request.post("/api/goRegistry", {
+        user: this.ruleForm.user,
+        pwd: this.ruleForm.pwd,
+      }).then(res => {
+        console.log(res);
+        if (res.data.code === 1) {
+          this.$router.history.go(-1);
+          alert("注册成功");
+        } else {
+          this.ruleForm.pwd='';
+          this.ruleForm.pwd1='';
+          alert("注册失败");
         }
-        if(OK){
-          this.ruleForm.pwd=encrypt(this.ruleForm.pwd,'pass')
-          this.ruleForm.pwd1=encrypt(this.ruleForm.pwd,'pass')
-          request.post("/api/goRegistry", {
-              user: this.ruleForm.user,
-              pwd: this.ruleForm.pwd,
-            }).then(res => {
-              console.log(res);
-              if (res.data.code === 1) {
-                this.$router.history.go(-1);
-                alert("注册成功");
-              } else {
-                this.ruleForm.pwd='';
-                this.ruleForm.pwd1='';
-                alert("注册失败");
-              }
-            });
-        }else{
-          alert("请输入符和规则的账号密码！")
-        }
-      }
+      });
+    }else{
+      alert("请输入符和规则的账号密码！")
+    }
+  }
     },
     created() {},
     mounted() {}
