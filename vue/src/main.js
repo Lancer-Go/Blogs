@@ -8,12 +8,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 import Validator from 'vue-validator'
 import VueCookies from 'vue-cookies'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 Vue.use(VueCookies)
 Vue.use(ElementUI);
 Vue.use(Validator);
 Vue.config.productionTip = false;
+Vue.prototype.$axios = axios
 
 const store = new Vuex.Store({
   state:{

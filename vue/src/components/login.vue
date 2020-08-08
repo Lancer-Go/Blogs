@@ -24,7 +24,6 @@
 </template>
 <script>
 
-  import request from "axios"
   import CryptoJS from 'crypto-js'
   //validator定义
   var OK=false;
@@ -82,7 +81,8 @@
       goHome(){
         let that=this;
         let user=this.ruleForm.user;
-        let pwd=this.ruleForm.pwd
+        let pwd=this.ruleForm.pwd;
+        this.$store.state.userId=user;
         const encrypt = (word,key) => {//加密
           key = CryptoJS.enc.Utf8.parse(key);
           const srcs = CryptoJS.enc.Utf8.parse(word);
@@ -94,33 +94,30 @@
         }
         if(OK){
           pwd=encrypt(this.ruleForm.pwd,'pass')
-          request.post("/api/goLogin",{
+          this.$axios
+            .post("/api/goLogin",{
             user:user,
             pwd:pwd
-          }).then((res)=>{//使用that指针指向this，因为在then情况下指针this会改变方向，变为undefinded
-            console.log(res);
-            if(res.data.code===-1)
-              that.$store.state.loginCode=-1;
-            else if(res.data.code===1)
-              that.$store.state.loginCode=1;
+          })
+            .then(res=>{//使用that指针指向this，因为在then情况下指针this会改变方向，变为undefinded
+            console.log(res);//暂未解决第一次无法入正确的数据，第二次才能进行登陆
+           let data = res.data;
+           if(data.code===1){
+             this.$cookies.set("usercookie",that.ruleForm.user+'_'+'userKey',"1h");//1小时过期
+             that.$router.push({path:'/blog'});
+           }
+           else{
+             this.$router.push({path:'/login'});
+           }
             /*if(window.sessionStorage.getItem('token')){
               request.defaults.headers.common['Authorization'] = 'Bearer'+ window.sessionStorage.getItem('token');
             }
             window.sessionStorage.setItem('token','')//需要修改
             */
           })
-          //尽量不要把条件放到then后面的resolve，容易导致this指针乱了
-          if(this.$store.state.loginCode === -1){
-            alert("登陆失败");
-            this.$router.push('/login');
-            this.ruleForm.user='';
-            this.ruleForm.pwd='';
-          }else if(this.$store.state.loginCode===1){
-            this.$cookies.set("usercookie",this.ruleForm.user+'_'+'userKey',"1h");//1小时过期
-            this.$store.state.userId=user;
-            alert("登陆成功");
-            this.$router.push('/blog');
-          }
+          .catch((err)=>{
+            console.log(err)
+          })
         }else{
           alert("账号密码输入规则有误~")
         }
