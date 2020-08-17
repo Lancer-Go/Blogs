@@ -1,6 +1,7 @@
 'use strict';
 const Service = require('egg').Service;
 const User = require('../db/User');
+
 class LoginService extends Service {
     async gologin(user,pwd) {
         let data = await User.findAll({
@@ -9,7 +10,6 @@ class LoginService extends Service {
                 password:pwd
             }
         });
-
         if(data.length>0){
             return{
                 code:1,

@@ -6,7 +6,7 @@
           <h3 style="color: deepskyblue;text-align: center">网站博客注册</h3>
         </div>
         <el-form class="mask-box" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-          <el-form-item label="账号" prop="user"style="padding: 10px 0;">
+          <el-form-item label="账号" prop="user" style="padding: 10px 0;">
             <el-input v-model="ruleForm.user"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="pwd" style="padding: 10px 0;">
@@ -23,53 +23,52 @@
 </template>
 <script>
   import CryptoJS from "crypto-js";
-  import request from "axios";
 
-
-  //validator定义
   var OK=false;
-  const validateRPass = (rule, value, callback) => {
-    const reg= /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/
-    if (value === '') {
-      OK=false;
-      callback(new Error('请输入密码'));
-    }else if(!reg.test(value)){
-      OK=false;
-      callback(new Error("请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种"))
-    } else{
-      OK=true;
-      callback()
-    }
-  };
-  const validateRPass2 = (rule, value, callback) => {
-    if (value === '') {
-      OK = false;
-      callback(new Error('请再次输入密码'));
-    } else if (value !== this.ruleForm.pwd) {
-      OK = false;
-      callback(new Error('两次输入密码不一致!'));
-    } else {
-      OK = true;
-      callback();
-    }
-  };
-  const checkRUser = (rule, value, callback) => {
-    if(!value){
-      OK=false;
-      callback(new Error("请输入账号"))
-    }else if(value.length<6){
-      OK=false
-      callback(new Error("账号要不少于6位"))
-    } else{
-      OK=true
-      callback()
-    }
-  };
 
   export default {
+    name:'registry',
     props: {},
     components: {},
     data() {
+      //validator定义
+      const validateRPass =async (rule, value, callback) => {
+        const reg= /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/
+        if (value === '') {
+          OK=false;
+          callback(new Error('请输入密码'));
+        }else if(!reg.test(value)){
+          OK=false;
+          callback(new Error("请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种"))
+        } else{
+          OK=true;
+          callback()
+        }
+      }
+      const validateRPass2 =async (rule, value, callback)=> {
+        if (value === '') {
+          OK = false;
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.ruleForm.pwd) {
+          OK = false;
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          OK = true;
+          callback();
+        }
+      }
+      const checkRUser =async (rule, value, callback)=>{
+        if(!value){
+          OK=false;
+          callback(new Error("请输入账号"))
+        }else if(value.length<6){
+          OK=false
+          callback(new Error("账号要不少于6位"))
+        } else{
+          OK=true
+          callback()
+        }
+      }
       return {
         ruleForm:{
           user:'',
@@ -87,7 +86,7 @@
             {validator:validateRPass2,trigger:'blur'}
           ]
         },
-      };
+      }
     },
     computed: {},
     methods: {
@@ -102,21 +101,28 @@
       return encrypted.toString();
     }
     if(OK){
-      this.ruleForm.pwd=encrypt(this.ruleForm.pwd,'pass')
-      this.ruleForm.pwd1=encrypt(this.ruleForm.pwd,'pass')
-      request.post("/api/goRegistry", {
-        user: this.ruleForm.user,
-        pwd: this.ruleForm.pwd,
+      let user=this.ruleForm.user;
+      let pwd=encrypt(this.ruleForm.pwd,'pass');
+      this.$axios.post("/api/goRegistry", {
+        user: user,
+        pwd: pwd,
       }).then(res => {
         console.log(res);
-        if (res.data.code === 1) {
-          this.$router.history.go(-1);
-          alert("注册成功");
-        } else {
-          this.ruleForm.pwd='';
-          this.ruleForm.pwd1='';
-          alert("注册失败");
-        }
+        if (res.status === 200)
+            if(res.data.code===1){
+            //this.$router.history.go(-1);
+              this.$message({
+                message:"注册成功",
+                type:"success"
+              })
+          } else {
+            this.ruleForm.pwd='';
+            this.ruleForm.pwd1='';
+              this.$message({
+                message:"注册失败",
+                type:"error"
+              })
+          }
       });
     }else{
       alert("请输入符和规则的账号密码！")

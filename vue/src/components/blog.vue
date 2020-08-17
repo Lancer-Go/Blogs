@@ -27,14 +27,13 @@
               </el-submenu>
               <el-menu-item index="3" disabled>功能尚未开发</el-menu-item>
               <el-menu-item index="4">尚未开发</el-menu-item>
-              <el-row type="flex" justify="end">
-                <el-submenu index="3">
+              <el-submenu index="5" style="float:right">
                   <template slot="title">{{user_id}}</template><!--这里使用外部送来的数据{{name}}}-->
-                  <el-menu-item index="3-1">账号信息</el-menu-item><!--这里显示账号-->
-                  <el-menu-item index="3-2">修改密码</el-menu-item>
-                  <el-menu-item index="3-3">退出登陆</el-menu-item>
-                </el-submenu>
-              </el-row>
+                  <el-menu-item index="5-1">账号信息(未开发)</el-menu-item><!--这里显示账号-->
+                  <el-menu-item index="5-2">修改密码(未开发)</el-menu-item>
+                  <el-menu-item index="5-3" @click="quit">退出登陆</el-menu-item>
+              </el-submenu>
+
             </el-menu>
           </el-col>
         </el-row>
@@ -42,19 +41,21 @@
       <el-main class="main_">
         <el-row style="height: 80px"></el-row>
         <el-row type="flex" justify="center">
-          <el-col :span="5"><div>都是测试</div></el-col>
+          <el-col :span="5"><div></div></el-col>
           <el-col :span="15"><Bcontent v-bind:user_id="user_id"></Bcontent></el-col><!--将父组件的value传到子组件中-->
-          <el-col :span="4"><div>都是测试</div></el-col>
+          <el-col :span="4"><div></div></el-col>
         </el-row>
       </el-main>
       <el-footer>
-        <el-col :span="24"><div>都是测试</div></el-col>
+        <el-col :span="24"><div></div></el-col>
       </el-footer>
     </el-container>
 </template>
 
 <script>
+  import cookie from '../public/util'
   import Bcontent from "./blog-components/Bcontent";
+  import router from "../router";
 export default {
   name: 'App',
   components: {Bcontent},//局部挂载组件
@@ -65,6 +66,14 @@ export default {
     }
   },
   methods:{
+    quit(){
+      cookie.delCookie('token')
+      this.$message({
+        message:this.$store.state.userId+' 已退出 ',
+        type:"success"
+      })
+      router.push({path:'/login'})
+    }
   }
 }
 </script>

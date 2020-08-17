@@ -1,6 +1,7 @@
 <template>
   <div style="width:1200px;height:200px;display: flex;flex-direction: row">
     <div class="app">
+      <el-input v-model="form.title" placeholder="请输入题目"></el-input>
       <div class="edit">
         <el-dropdown class="btn">
           <el-button title="标题" class="btn">H</el-button>
@@ -51,8 +52,8 @@
       </div>
       <el-row type="flex" justify="center">
         <el-col :span="6" class="click_btn">
-          <el-button @click="saveArticle">保存</el-button>
-          <el-button>提交</el-button>
+          <el-button @click="saveArticle('保存')">保存</el-button>
+          <el-button @click="saveArticle('发布')">发布</el-button>
         </el-col>
       </el-row>
     </div>
@@ -68,16 +69,14 @@
           return{
             form:{
               user:this.user_id,
-              title:'全都是例子',
+              title:'',
               article:'',
               isPublish:false
             },
             msg:'文章内容组件',
             components_:{
               link_:'',
-              pho_:'',
-              isBlack:false,
-              isItalic:false
+              pho_:''
             },
           }
       },
@@ -89,16 +88,10 @@
           document.execCommand('forecolor',false,select);
         },
         blackMode(){//加粗
-          if(this.components_.isBlack)
-            document.execCommand('SuperScript');
-          else
-            document.execCommand('bold');
+          document.execCommand('bold');
         },
         italicMode(){//斜体
-          if(this.components_.isItalic)
-            document.execCommand('Underline');
-          else
-            document.execCommand('italic')
+          document.execCommand('italic')
         },
         linkMode(){//超链接
           let Bsuccess = document.execCommand('createlink',false,this.components_.link_);
@@ -121,11 +114,11 @@
           document.execCommand('underline');
         },
 
-        saveArticle(){
+        saveArticle(item){
           console.log(this.form.user);
           let article=document.getElementById("reachEdit");
-          this.form.isPublish=false;//文章未发布
           this.form.article=article.innerHTML;
+          this.form.isPublish = item === '发布';//文章发布与否
           request.post('/api/blog',{
             userId:this.form.user,
             title:this.form.title,
@@ -133,17 +126,20 @@
             isPublish:this.form.isPublish
           }).then((res)=>{
             console.log(res);
-            if(res.data.code===-1){
-              alert("保存失败");
+            if(res.status===401){
+              this.$message({
+                message:"保存失败",
+                type:"error"
+              })
             }
             else{
-              alert("保存成功");
+              this.$message({
+                message:"保存成功",
+                type:"success"
+              })
             }
           })
         },
-        uploadArticle(){//功能暂未实现
-
-        }
       },
       computed:{
       }
@@ -160,12 +156,14 @@
   }
   .reachEdit{
     background-color: white ;
-    width:100%;
+    width:899px;
     height:100%;
     border:1px solid #ccc;
     border-radius: 0 0 5px 5px;
     text-align: left;
     opacity: 0.7;
+    outline:none;
+    overflow: auto;
   }
   .btn{
     margin: 0;

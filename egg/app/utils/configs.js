@@ -1,0 +1,9 @@
+//公用的配置文件
+module.exports={
+    token:{
+        secret:'zqm',
+        option:{
+            expiresIn:'60s'
+        }
+    }
+}

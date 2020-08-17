@@ -5,7 +5,8 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  router.post('/blog', controller.upart.uploadFn);
+  const checkToken = app.middleware.checkToken();
+  router.post('/blog', checkToken, controller.upart.uploadFn);
   router.post('/goLogin', controller.login.loginFn);
   router.post('/goRegistry', controller.registry.registryFn);
 };

@@ -13,8 +13,8 @@
             <el-input type="password" v-model="ruleForm.pwd" show-password></el-input>
           </el-form-item>
           <div class="button-style">
-            <button class="btn" @click="goHome">登录</button>
-            <button class="btn" @click="goRegistery">注册</button>
+            <el-button class="btn" @click="goHome">登录</el-button>
+            <el-button class="btn" @click="goRegistery">注册</el-button>
           </div>
           <el-button type="warning" icon="el-icon-star-off" circle @click="jumpHome" style="margin-left: 165px;width:70px">我的</el-button>
         </el-form>
@@ -24,42 +24,44 @@
 </template>
 <script>
 
+  import {Base64} from 'js-base64';
   import CryptoJS from 'crypto-js'
-  //validator定义
+  import cookie from '../public/util';
   var OK=false;
-  const checkUser = (rule, value, callback)=>{
-    if(!value){
-      OK=false;
-      callback(new Error("请输入账号"))
-    }else if(value.length<6){
-      OK=false;
-      callback(new Error("账号要不少于6位"))
-    }
-    else{
-      OK=true;
-      callback()
-    }
-  }
-  const validatePass = (rule, value, callback) => {
-    const reg= /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/
-    const checkpass = new RegExp(reg)
-    if (value === '') {
-      OK=false;
-      callback(new Error('请输入密码'));
-    }else if(!checkpass.test(value)){
-      OK=false;
-      callback(new Error("请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种"))
-    } else{
-      OK=true;
-      callback()
-    }
-  }
   export default {
     props:{
     },
     components:{
     },
     data(){
+      //validator定义,可选择采用最新的vue-form进行对表单验证
+      const checkUser = async (rule, value, callback)=>{
+        if(!value){
+          OK=false;
+          callback(new Error("请输入账号"))
+        }else if(value.length<6){
+          OK=false;
+          callback(new Error("账号要不少于6位"))
+        }
+        else{
+          OK=true;
+          callback()
+        }
+      }
+      const validatePass = async (rule, value, callback) => {
+        const reg= /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/
+        const checkpass = new RegExp(reg)
+        if (value === '') {
+          OK=false;
+          callback(new Error('请输入密码'));
+        }else if(!checkpass.test(value)){
+          OK=false;
+          callback(new Error("请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种"))
+        } else{
+          OK=true;
+          callback()
+        }
+      }
       return {
         ruleForm:{
           user:'',
@@ -82,7 +84,6 @@
         let that=this;
         let user=this.ruleForm.user;
         let pwd=this.ruleForm.pwd;
-        this.$store.state.userId=user;
         const encrypt = (word,key) => {//加密
           key = CryptoJS.enc.Utf8.parse(key);
           const srcs = CryptoJS.enc.Utf8.parse(word);
@@ -101,12 +102,18 @@
           })
             .then(res=>{//使用that指针指向this，因为在then情况下指针this会改变方向，变为undefinded
             console.log(res);//暂未解决第一次无法入正确的数据，第二次才能进行登陆
-           let data = res.data;
-           if(data.code===1){
-             this.$cookies.set("usercookie",that.ruleForm.user+'_'+'userKey',"1h");//1小时过期
-             that.$router.push({path:'/blog'});
+           if(res.status===200){
+             this.$message({
+               message:'登陆成功',
+               type:'success'
+             })
+             this.$router.push({path:'/blog'});
            }
            else{
+             this.$message({
+               message:'登陆失败',
+               type:"error"
+             })
              this.$router.push({path:'/login'});
            }
             /*if(window.sessionStorage.getItem('token')){
@@ -119,23 +126,25 @@
             console.log(err)
           })
         }else{
-          alert("账号密码输入规则有误~")
+          this.$message({
+            message:"账号密码输入规则有误~",
+            type:"warning"
+          })
         }
       },
       goRegistery(){
         this.$router.push({path:"/registry"});
-        loading.close();
       },
       jumpHome(){
-        let usercookie = this.$cookies.get("usercookie");
-        if(!usercookie){
-          alert("你还没有登陆噢~")
+        if(!cookie.getCookie('token')){
+          this.$message({
+            message:"您还未登陆哟~",
+            type:"warning"
+          })
           this.$router.push({
             path: '/login'
           });
         }else{
-          let user=usercookie.split('_');
-          this.$store.state.userId=user[0];
           this.$router.push({
             path: '/blog'
           });
@@ -184,10 +193,6 @@
     height: 400px;
     display: flex;
     flex-direction: column;
-  }
-  .group .el-input {
-    margin-top:28px;
-    width:280px
   }
 
   .btn{

@@ -1,4 +1,4 @@
-const checkUser = (rule, value, callback)=>{
+checkUser = (rule, value, callback)=>{
   if(!value){
     OK=false;
     callback(new Error("请输入账号"))
@@ -14,7 +14,7 @@ const checkUser = (rule, value, callback)=>{
 const validatePass = (rule, value, callback) => {
   const reg= /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/
   const checkpass = new RegExp(reg)
-  if (value === '') {
+  if(value===''){
     OK=false;
     callback(new Error('请输入密码'));
   }else if(!checkpass.test(value)){
@@ -25,5 +25,3 @@ const validatePass = (rule, value, callback) => {
     callback()
   }
 }
-exports.checkUser=checkUser;
-exports.validatePass=validatePass;
