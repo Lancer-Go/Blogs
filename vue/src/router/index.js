@@ -26,7 +26,7 @@ const router = new Router({
     {
       path:'/blog',
       name:'blog',
-      component: Blog,
+      component: resolve=>(require(["@/components/blog"],resolve)),
       meta:{
         requiresAuth:true
       }

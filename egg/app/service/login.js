@@ -5,12 +5,12 @@ const User = require('../db/User');
 class LoginService extends Service {
     async gologin(user,pwd) {
         let data = await User.findAll({
-            where:{
-                user:user,
-                password:pwd
-            }
+                where:{
+                    user:user,
+                    password:pwd
+                }
         });
-        if(data.length>0){
+        if(data.toJSON()){
             return{
                 code:1,
                 message:'登陆成功',

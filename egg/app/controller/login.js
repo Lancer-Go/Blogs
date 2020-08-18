@@ -18,6 +18,12 @@ class LoginController extends Controller {
         const { ctx, service } = this;
         let { user, pwd } = ctx.request.body;
         let result = await service.login.gologin(user, pwd);
+        //核对捕获异常
+        ctx.runInBackground(async ()=>{
+            //这里捕获异常，以免出现异常而导致断开连接
+            await ctx.service.login.check(user, pwd);
+            }
+        )
         if(result.code===1){
             let token=tokensign(user)
             this.ctx.cookies.set('token', token,

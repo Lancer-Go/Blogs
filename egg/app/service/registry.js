@@ -19,10 +19,18 @@ class RegistryService extends Service {
                 user: user,
                 password: pwd
             });
-            return {
-                code: 1,
-                message: '注册成功',
-                //dat   //一般不返回，容易信息泄露
+            if(dat.toJSON()){
+                return {
+                    code: 1,
+                    message: '注册成功',
+                    //dat   //一般不返回，容易信息泄露
+                }
+            } else{
+                return {
+                    code: 0,
+                    message: '注册失败，断开连接',
+                    //dat   //一般不返回，容易信息泄露
+                }
             }
         }
 

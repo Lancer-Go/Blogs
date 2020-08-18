@@ -2,18 +2,13 @@ const Blog = require("../db/Blog");
 const Service = require('egg').Service;
 class UpArtService extends Service {
     async UpArt (userId,title,article,isPublish){
-        let dat=Blog.create({
+        let dat = await Blog.create({
             userId:userId,
             title:title,
             article:article,
             isPublish: isPublish
         })
-        let result = Blog.findAll({
-            where:{
-                title:title
-            }
-        })
-        if(result){
+        if(dat.toJSON()){
             return{
                 code:1,
                 message:'上传成功',

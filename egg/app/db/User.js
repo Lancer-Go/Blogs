@@ -2,6 +2,11 @@ const sequelize = require("./connect");
 const Sequelize = require('sequelize');
 //const Blog = require('./Blog');
 const User = sequelize.define('user',{
+    userId:{
+        type:Sequelize.INTEGER,
+        primaryKey:true,
+        autoIncrement:true
+    },
     user:{
         type:Sequelize.STRING(20),
         primaryKey:true,
