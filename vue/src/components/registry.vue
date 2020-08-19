@@ -115,6 +115,7 @@
                 message:"注册成功",
                 type:"success"
               })
+              this.$router.push({path:'/login'})
           } else {
             this.ruleForm.pwd='';
             this.ruleForm.pwd1='';

@@ -1,16 +1,16 @@
 //jwt中间件
-const config = require('../utils/configs')
+
 module.exports = () => {
+    const config = require('../utils/configs')
     const jwt = require('jsonwebtoken');
     return async function (ctx, next) {
         if (ctx.request.header['authorization']) {
             let token = ctx.request.header['authorization'];
             console.log("这是一个token")
             console.log(token)
-            let decoded;
             //解码token
             try {
-                decoded = jwt.verify(token, config.token.secret);//尝试解码，如果解码不成功或者令牌过期，就抛出错误
+                jwt.verify(token, config.token.secret);//尝试解码，如果解码不成功或者令牌过期，就抛出错误
             } catch (error) {
                 if (error.name === 'TokenExpiredError') {//token过期
                     console.log('时间到期')
